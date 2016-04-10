@@ -1,0 +1,12 @@
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Booker.exe.config
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.exe
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.pdb
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Booker.exe
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Booker.pdb
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\eBdb.EpubReader.dll
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Ionic.Zip.dll
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.csprojResolveAssemblyReference.cache
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.Form1.resources
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.Properties.Resources.resources
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.csproj.GenerateResource.Cache
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.Settings.resources
