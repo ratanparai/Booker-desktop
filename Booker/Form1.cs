@@ -46,6 +46,9 @@ namespace Booker
                     // MessageBox.Show(openEbook.FileName);
                     Epub myEbook = new Epub(openEbook.FileName);
 
+                    string title = myEbook.Title[0];
+                    string author = myEbook.Creator[0];
+
                     String bookContent = myEbook.GetContentAsPlainText();
 
                     // each line in a each array elements
@@ -53,7 +56,8 @@ namespace Booker
 
                     progressBar1.Visible = true;
                     progressBarLabel.Visible = true;
-                
+                    
+
 
                     countThePage();
 
@@ -68,6 +72,12 @@ namespace Booker
                     // default show page 1 contents
                     showPageContent(1);
 
+                    // check if the book info is saved or not
+
+                    // if not not saved then save it
+                    Booker bkr = new Booker();
+                    bkr.searchBook(title, openEbook.FileName, author);
+
                 }
 
                 
@@ -79,6 +89,7 @@ namespace Booker
                 MessageBox.Show(ex.Message);
             }
         }
+
 
         private void countThePage()
         {
@@ -122,7 +133,7 @@ namespace Booker
                 currentLine++;
             }
 
-            Console.WriteLine(tempLabel.Height);
+            //Console.WriteLine(tempLabel.Height);
 
             return currentLine;
         }
