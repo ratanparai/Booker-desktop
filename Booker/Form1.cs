@@ -49,6 +49,8 @@ namespace Booker
                     string title = myEbook.Title[0];
                     string author = myEbook.Creator[0];
 
+                    bookInfoLabel.Text = title + " - " + author;
+
                     String bookContent = myEbook.GetContentAsPlainText();
 
                     // each line in a each array elements
@@ -86,7 +88,7 @@ namespace Booker
 
             } catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -180,6 +182,7 @@ namespace Booker
 
             tempLabel.MaximumSize = new Size(600, 0);
             tempLabel.AutoSize = true;
+            bookInfoLabel.Text = "";
 
         }
 
@@ -202,6 +205,11 @@ namespace Booker
         {
             Settings frm1 = new Settings();
             frm1.Show();
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
