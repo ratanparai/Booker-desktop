@@ -65,6 +65,11 @@ namespace Booker
                 Properties.Settings.Default.username = usernameTextBox.Text;
                 Properties.Settings.Default.password = passwordTextBox.Text;
                 Properties.Settings.Default.apiURL = urlTextBox.Text;
+
+                string result = await content.ReadAsStringAsync();
+                var userInfo = Json.JsonParser.Deserialize(result);
+
+                Properties.Settings.Default.user_id = userInfo.user.userid;
                 Properties.Settings.Default.Save();
 
                 loginStatus.BeginInvoke(DelUpdateTextBox, "Login Successfull");
@@ -74,13 +79,9 @@ namespace Booker
             }
 
             // Read the string
-            string result = await content.ReadAsStringAsync();
+            
 
-            // display the result
-            if(result != null && result.Length >=50)
-            {
-                Console.WriteLine(result);
-            }
+            
         }
 
         private void UpdateTextBox(String text)

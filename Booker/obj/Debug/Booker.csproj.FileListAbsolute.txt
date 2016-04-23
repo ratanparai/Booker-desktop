@@ -10,3 +10,7 @@ C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debu
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.Properties.Resources.resources
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.csproj.GenerateResource.Cache
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.Settings.resources
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Json.dll
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Json.pdb
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Newtonsoft.Json.xml

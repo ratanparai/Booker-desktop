@@ -10,14 +10,18 @@ using System.Windows.Forms;
 using eBdb.EpubReader;
 using System.Threading;
 
+using Json;
+
 namespace Booker
 {
     public partial class Form1 : Form
     {
-        private BookPage[] pageSave = new BookPage[2000];
+        //private BookPage[] pageSave = new BookPage[2000];
+        private List<BookPage> pageSave = new List<BookPage>();
         private int currentLine;
         private int curPage;
         private int totPage;
+        private string current_book_id;
 
 
         private string[] bookContentArray;
@@ -58,10 +62,21 @@ namespace Booker
 
                     progressBar1.Visible = true;
                     progressBarLabel.Visible = true;
+
+                    string pageSaveLocation = System.IO.Path.ChangeExtension(openEbook.FileName, "page");
+
+                    if (System.IO.File.Exists(pageSaveLocation))
+                    {
+                        this.pageSave = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BookPage>>(System.IO.File.ReadAllText(pageSaveLocation));
+                        this.totPage = pageSave.Count;
+                    } else
+                    {
+                        countThePage();
+                        String pageSaveJson = Newtonsoft.Json.JsonConvert.SerializeObject(pageSave);
+                        System.IO.File.WriteAllText(pageSaveLocation, pageSaveJson);
+                    }
+
                     
-
-
-                    countThePage();
 
                     progressBar1.Visible = false;
                     progressBarLabel.Visible = false;
@@ -71,14 +86,53 @@ namespace Booker
 
                     curPage = 0;
 
-                    // default show page 1 contents
-                    showPageContent(1);
+                    
 
                     // check if the book info is saved or not
+                    // get joson file name
+                    string bookInfoFile = System.IO.Path.ChangeExtension(openEbook.FileName, "booker");
+
+                    // if file exits
+                    Booker bkr = new Booker();
+                    if (System.IO.File.Exists(bookInfoFile))
+                    {
+                        // read file info
+                        var book = JsonParser.Deserialize(System.IO.File.ReadAllText(bookInfoFile));
+                        double goodreads_id = book.book.goodreads_id;
+                        this.current_book_id = goodreads_id.ToString();
+
+
+                    } else
+                    {
+                        bkr.searchBook(title, openEbook.FileName, author);
+
+                        var book = JsonParser.Deserialize(System.IO.File.ReadAllText(bookInfoFile));
+                        double goodreads_id = book.book.goodreads_id;
+                        this.current_book_id = goodreads_id.ToString();
+
+                    }
+
+                    double progressPercentage = bkr.getProgress(current_book_id);
+
+
 
                     // if not not saved then save it
-                    Booker bkr = new Booker();
-                    bkr.searchBook(title, openEbook.FileName, author);
+                    // default show page 1 contents
+                    if(progressPercentage == 0)
+                    {
+                        showPageContent(1);
+                    } else
+                    {
+                        Console.WriteLine(progressPercentage);
+                        int pageToShow = (int)(((progressPercentage * totPage) / 100) + .5);
+                        showPageContent(pageToShow);
+                    }
+
+                    // save pagesave as json
+                    
+
+                    
+
 
                 }
 
@@ -109,7 +163,8 @@ namespace Booker
 
                 BookPage bp = new BookPage(startLine, nextLine);
 
-                pageSave[workingPage] = bp;
+                //pageSave[workingPage] = bp;
+                pageSave.Add(bp);
                 
                 workingPage++;
                 currentLine++;
@@ -142,6 +197,17 @@ namespace Booker
 
         private void showPageContent(int pageNumber)
         {
+
+            if(pageNumber > totPage)
+            {
+                pageNumber = totPage;
+            }
+
+            if(pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
             label1.Text = "";
 
             for (int i = pageSave[pageNumber-1].startLineNumber; i <= pageSave[pageNumber-1].endLineNumber; i++)
@@ -170,6 +236,8 @@ namespace Booker
 
             curPage = pageNumber;
             currentPageLabel.Text = curPage.ToString();
+
+            postProgress();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -184,16 +252,27 @@ namespace Booker
             tempLabel.AutoSize = true;
             bookInfoLabel.Text = "";
 
+            gotoPageInput.Visible = false;
+
+            //gotoPageInput.KeyDown += new System.EventHandler(gotoPageInput_KeyDown);
+
+
         }
 
         private void nextPageButton_Click(object sender, EventArgs e)
         {
             showPageContent(curPage + 1);
+            //Task t = new Task(postProgress);
+            //t.Start();
+            
         }
 
         private void prevPageButton_Click(object sender, EventArgs e)
         {
             showPageContent(curPage - 1);
+            //Task t = new Task(postProgress);
+            //t.Start();
+            //postProgress();
         }
 
         private void tempLabel_Click(object sender, EventArgs e)
@@ -210,6 +289,38 @@ namespace Booker
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void postProgress()
+        {
+            Console.WriteLine("Progress report");
+            double progressPercentage = ((double) curPage / (double) totPage) * 100;
+            Console.WriteLine(progressPercentage);
+
+            Booker bkr = new Booker();
+            bkr.postProgress(progressPercentage, this.current_book_id);
+        }
+
+        private void currentPageLabel_Click(object sender, EventArgs e)
+        {
+            string pageNumber = currentPageLabel.Text;
+            currentPageLabel.Visible = false;
+
+            gotoPageInput.Text = pageNumber;
+            gotoPageInput.Visible = true;
+        }
+
+
+        private void gotoPageInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int gotoPageNumber =  Int32.Parse(gotoPageInput.Text);
+                gotoPageInput.Visible = false;
+                currentPageLabel.Visible = true;
+
+                showPageContent(gotoPageNumber);
+            }
         }
     }
 }

@@ -43,6 +43,7 @@
             this.currentPageLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bookInfoLabel = new System.Windows.Forms.Label();
+            this.gotoPageInput = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +70,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -84,7 +85,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -164,6 +165,7 @@
             this.currentPageLabel.Size = new System.Drawing.Size(35, 13);
             this.currentPageLabel.TabIndex = 8;
             this.currentPageLabel.Text = "label2";
+            this.currentPageLabel.Click += new System.EventHandler(this.currentPageLabel_Click);
             // 
             // label2
             // 
@@ -184,11 +186,20 @@
             this.bookInfoLabel.TabIndex = 10;
             this.bookInfoLabel.Text = "label3";
             // 
+            // gotoPageInput
+            // 
+            this.gotoPageInput.Location = new System.Drawing.Point(237, 632);
+            this.gotoPageInput.Name = "gotoPageInput";
+            this.gotoPageInput.Size = new System.Drawing.Size(39, 20);
+            this.gotoPageInput.TabIndex = 11;
+            this.gotoPageInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gotoPageInput_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 673);
+            this.ClientSize = new System.Drawing.Size(628, 664);
+            this.Controls.Add(this.gotoPageInput);
             this.Controls.Add(this.bookInfoLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.currentPageLabel);
@@ -228,6 +239,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Label bookInfoLabel;
+        private System.Windows.Forms.TextBox gotoPageInput;
     }
 }
 

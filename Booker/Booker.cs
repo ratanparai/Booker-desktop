@@ -59,5 +59,45 @@ namespace Booker
 
         }
 
+        public void postProgress(double progressPercentage, string book_id)
+        {
+            Uri callUrl = new Uri(this.url + "/api/progress");
+
+            Console.WriteLine("Book id " + book_id + " progress " + progressPercentage.ToString());
+
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("book_id", book_id),
+                new KeyValuePair<string, string>("progress", progressPercentage.ToString())
+            });
+
+            var response = this.client.PostAsync(callUrl, content).Result;
+
+            string saveContent = response.Content.ReadAsStringAsync().Result;
+
+            Console.WriteLine(saveContent);
+        }
+
+        public double getProgress(string book_id)
+        {
+            Uri callUrl = new Uri(this.url + "/api/progress/"+book_id);
+            var response = this.client.GetAsync(callUrl).Result;
+
+            string jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            var progress = Json.JsonParser.Deserialize(jsonResponse);
+
+            try
+            {
+                Console.WriteLine("Progress found!");
+                return progress.progress;
+            }
+            catch
+            {
+                return 0;
+            }
+
+        }
+
     }
 }
