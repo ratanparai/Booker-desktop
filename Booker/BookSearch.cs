@@ -19,7 +19,7 @@ namespace Booker
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.OK;
         }
 
         public string getTitle()
