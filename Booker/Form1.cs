@@ -98,17 +98,18 @@ namespace Booker
                     {
                         // read file info
                         var book = JsonParser.Deserialize(System.IO.File.ReadAllText(bookInfoFile));
-                        double goodreads_id = book.book.goodreads_id;
-                        this.current_book_id = goodreads_id.ToString();
 
+                        this.current_book_id = book.book._id;
+
+                        bookInfoLabel.Text = book.book.title + " : " + book.book.author_name;
 
                     } else
                     {
                         bkr.searchBook(title, openEbook.FileName, author);
 
                         var book = JsonParser.Deserialize(System.IO.File.ReadAllText(bookInfoFile));
-                        double goodreads_id = book.book.goodreads_id;
-                        this.current_book_id = goodreads_id.ToString();
+                        this.current_book_id = book.book._id;
+                        bookInfoLabel.Text = book.book.title + " : " + book.book.author_name;
 
                     }
 
@@ -155,6 +156,13 @@ namespace Booker
                 int startLine = currentLine;
                 int nextLine = pageCount();
 
+                Console.WriteLine("NextLine : " + nextLine);
+
+                if (nextLine == 1210)
+                {
+                    Console.WriteLine("Debug..");
+                }
+
                 if (nextLine >= bookContentArray.Length-1)
                 {
                     totPage = workingPage;
@@ -165,7 +173,10 @@ namespace Booker
 
                 //pageSave[workingPage] = bp;
                 pageSave.Add(bp);
-                
+
+                Console.WriteLine("Working Line : " + workingPage + " CurrentLine: " + currentLine);
+                Console.WriteLine("Total Line: " + bookContentArray.Length);
+
                 workingPage++;
                 currentLine++;
 
@@ -177,7 +188,7 @@ namespace Booker
             // sample label for checking content size
             tempLabel.Text = "";
 
-            while (currentLine<bookContentArray.Length)
+            while (currentLine<=bookContentArray.Length-1)
             {
 
                 tempLabel.Text += bookContentArray[currentLine] + Environment.NewLine;

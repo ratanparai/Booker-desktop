@@ -14,3 +14,4 @@ C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debu
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Json.pdb
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Newtonsoft.Json.dll
 C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ratanparai\Documents\Visual Studio 2015\Projects\Booker\Booker\obj\Debug\Booker.BookSearch.resources

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Windows.Forms;
 
 namespace Booker
 {
@@ -42,6 +43,8 @@ namespace Booker
                 partUrl += "&author=" + author;
             }
 
+            Console.WriteLine("Searching book with url " + partUrl);
+
             Uri callUrl = new Uri(this.url + partUrl);
 
             var response = this.client.GetAsync(callUrl).Result;
@@ -49,13 +52,34 @@ namespace Booker
             int status = (int) response.StatusCode;
 
             Console.WriteLine("Status code " + status);
-            string saveContent = response.Content.ReadAsStringAsync().Result;
-            string name = System.IO.Path.GetFileNameWithoutExtension(fileName);
 
-            string pathname = System.IO.Path.ChangeExtension(fileName, "booker");
+            if (status != 200)
+            {
+                // ask user for ebook name and optional author and run the process again
+                //MessageBox.Show("We can't recognize the book!.");
+                //Settings frm1 = new Settings();
+                //frm1.Show();
+                BookSearch bookSearch = new BookSearch();
+                if (bookSearch.ShowDialog() == DialogResult.OK)
+                {
+                    //
+                    string bookTitle = bookSearch.getTitle();
+                    string bookAuthor = bookSearch.getAuthor();
 
-            Console.WriteLine(pathname);
-            System.IO.File.WriteAllText(pathname, saveContent);
+                    this.searchBook(bookTitle, fileName, bookAuthor);
+                }
+            }
+            else
+            {
+                string saveContent = response.Content.ReadAsStringAsync().Result;
+                string name = System.IO.Path.GetFileNameWithoutExtension(fileName);
+
+                string pathname = System.IO.Path.ChangeExtension(fileName, "booker");
+
+                Console.WriteLine(pathname);
+                System.IO.File.WriteAllText(pathname, saveContent);
+            }
+ 
 
         }
 
